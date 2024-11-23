@@ -32,13 +32,22 @@ wrap_model(model.vision_model, top_k=98)
 ```
 
 ### Inter-image Approach
+Note that the inter-image approach requires attention-masking to work. The encoder implementation of the transformer on HuggingFace already possesses an attention_mask flag that is unused for the vision encoder. Add the following line to the input of self.encoder:
+
 ```python
-from transformers import AutoModel
+attention_mask=getattr(hidden_states, 'attention_mask', None),
+
+```
+
+Please refer to *modeling_clip.py* and *modeling_blip.py* in the examples folder for more clarity.
+
+```python
+from examples import CLIPModel
 
 from vwt.inter import wrap_model
 
 
-model = AutoModel.from_pretrained('openai/clip-vit-base-patch16')
+model = CLIPModel.from_pretrained('openai/clip-vit-base-patch16')
 
 # load your pre-processing dataset here...
 pre_process_data = ['A list of images', '...']  # dummy data
