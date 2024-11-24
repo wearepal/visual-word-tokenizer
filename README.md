@@ -16,6 +16,8 @@ git clone https://github.com/wearepal/visual-word-tokenizer.git
 ## Usage
 
 ### Intra-image Approach
+Note that the `top_k` flag corresponds to retaining the top-K most heterogenous patches in the image. In our paper, we set `top_k` to the (total number of patches - number of patches to drop).
+
 ```python
 from transformers import AutoModel
 
