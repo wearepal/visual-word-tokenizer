@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 
 from vwt import WordTokenizer
 
@@ -14,7 +15,7 @@ def wrap_model(model, top_k):
             module.training = model.training
 
 
-class IntraImageTokenizer(WordTokenizer):
+class IntraImageTokenizer(nn.Module, WordTokenizer):
 
     def __init__(self, embeddings, top_k):
         super().__init__()
