@@ -1,6 +1,6 @@
 # Efficient Online Inference of Vision Transformers by Training-Free Tokenization
 
-The repository wraps the code for the paper titled [**Efficient Online Inference of Vision Transformers by Training-Free Tokenization**]() on Arxiv, into a ready to use library for your own application.
+The repository wraps the code for the paper titled [**Efficient Online Inference of Vision Transformers by Training-Free Tokenization**](https://arxiv.org/abs/2411.15397) on Arxiv, into a ready to use library for your own application.
 
 The [arxiv](https://github.com/wearepal/visual-word-tokenizer/tree/arxiv) branch contains the original code for the paper.  
 
