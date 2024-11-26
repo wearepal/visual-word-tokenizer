@@ -33,7 +33,7 @@ def buffered_arange(end):
     return buffered_arange.buf[:end]
 
 
-class InterImageTokenizer(WordTokenizer):
+class InterImageTokenizer(nn.Module, WordTokenizer):
 
     def __init__(self, embeddings, thresh):
         super().__init__()
