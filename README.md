@@ -77,7 +77,7 @@ new_vwt.load_words('pre_process_data/vocab.pt')
 
 ```
 
-You may also load the pre-processed visual words from HuggingFace. We provide the ImageNet-1K visual words with vocabulary sizes of 100, 1000, and 10000.
+You may also load the pre-processed visual words from HuggingFace. We provide the ImageNet-1K vocabulary with sizes of 100, 1000, and 10000.
 
 ```python
 from huggingface_hub import snapshot_download
