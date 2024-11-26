@@ -95,6 +95,8 @@ vwt = model.vision_model.embeddings
 
 # downloading the visual word vocabulary
 snapshot_download(repo_id='LeonidasY/inter-image-imgnet-100', local_dir='tokenizers')
+# snapshot_download(repo_id='LeonidasY/inter-image-imgnet-1000', local_dir='tokenizers')
+# snapshot_download(repo_id='LeonidasY/inter-image-imgnet-10000', local_dir='tokenizers')
 
 # loading the visual word vocabulary
 vwt.load_words('tokenizers/vocab.pt')
