@@ -34,7 +34,7 @@ wrap_model(model.vision_model, top_k=98)
 ```
 
 ### Inter-image Approach
-Note that the inter-image approach requires attention-masking to work. The encoder implementation of the transformer on HuggingFace already possesses an `attention_mask` flag that is unused for the vision transformer. Add the following line to the input of `self.encoder`:
+Note that the inter-image approach requires attention masking to work. The encoder implementation of the transformer on HuggingFace already possesses an `attention_mask` flag that is unused for the vision transformer. Add the following line to the input of `self.encoder`:
 
 ```python
 attention_mask=getattr(hidden_states, 'attention_mask', None),
