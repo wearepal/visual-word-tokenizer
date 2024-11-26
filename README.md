@@ -44,7 +44,7 @@ attention_mask=getattr(hidden_states, 'attention_mask', None),
 Please refer to *modeling_clip.py* and *modeling_blip.py* in the examples folder for more clarity.
 
 ```python
-from examples import CLIPModel
+from examples.modeling_clip import CLIPModel
 
 from vwt.inter import wrap_model
 
