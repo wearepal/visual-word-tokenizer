@@ -77,4 +77,30 @@ new_vwt.load_words('pre_process_data/vocab.pt')
 
 ```
 
+You may also load the pre-processed ImageNet-1K visual words from HuggingFace.
+
+```python
+from huggingface_hub import snapshot_download
+
+from examples.modeling_clip import CLIPModel
+from vwt.inter import wrap_model
+
+
+model = CLIPModel.from_pretrained('openai/clip-vit-base-patch16')
+
+# initializing an intra-image tokenizer
+wrap_model(model.vision_model, thresh=0.1)
+
+vwt = model.vision_model.embeddings 
+
+# downloading the visual word vocabulary
+snapshot_download(repo_id='LeonidasY/inter-image-imgnet-100', local_dir='tokenizers')
+
+# loading the visual word vocabulary
+vwt.load_words('tokenizers/vocab.pt')
+
+# deploy the model for inference on your downstream task...
+
+```
+
 ## Citation
