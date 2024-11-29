@@ -8,6 +8,7 @@ class AbstractWordTokenizer(metaclass=abc.ABCMeta):
 
     def __init__(self):
         self.embeddings = None
+        self.patch_size = None
         self.top_k = None
         self.thresh = None
         self.vocab = None
