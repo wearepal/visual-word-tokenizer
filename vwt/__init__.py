@@ -25,27 +25,6 @@ class AbstractWordTokenizer(metaclass=abc.ABCMeta):
     def pretokenize(self, pixel_values, patch_size, **kwargs):
         raise NotImplementedError
 
-    @abc.abstractmethod
-    def mean_by_label(self, embeddings, labels, **kwargs):
-        raise NotImplementedError
-
-    @staticmethod
-    @abc.abstractmethod
-    def _expand_mask(mask: torch.Tensor, dtype: torch.dtype, tgt_len: Optional[int] = None):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def learn_words(self, data, vocab_size, **kwargs):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def save_pretrained(self, save_directory, **kwargs):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def load_words(self, data, **kwargs):
-        raise NotImplementedError
-
 
 class WordTokenizer(AbstractWordTokenizer):
 
@@ -63,23 +42,3 @@ class WordTokenizer(AbstractWordTokenizer):
     def pretokenize(self, pixel_values, patch_size, **kwargs):
         patches = pixel_values.unfold(1, 3, 3).unfold(2, patch_size, patch_size).unfold(3, patch_size, patch_size)
         return patches.reshape(patches.size(0), -1, 3 * patch_size * patch_size)
-
-    @abc.abstractmethod
-    def mean_by_label(self, embeddings, labels, **kwargs):
-        raise NotImplementedError
-
-    @staticmethod
-    def _expand_mask(mask: torch.Tensor, dtype: torch.dtype, tgt_len: Optional[int] = None):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def learn_words(self, data, vocab_size, **kwargs):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def save_pretrained(self, save_directory, **kwargs):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def load_words(self, data, **kwargs):
-        raise NotImplementedError
