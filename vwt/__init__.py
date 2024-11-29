@@ -69,7 +69,6 @@ class WordTokenizer(AbstractWordTokenizer):
         raise NotImplementedError
 
     @staticmethod
-    @abc.abstractmethod
     def _expand_mask(mask: torch.Tensor, dtype: torch.dtype, tgt_len: Optional[int] = None):
         raise NotImplementedError
 
