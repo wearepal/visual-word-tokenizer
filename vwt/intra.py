@@ -20,7 +20,7 @@ class IntraImageTokenizer(nn.Module, WordTokenizer):
     def __init__(self, embeddings, top_k):
         super().__init__()
         self.embeddings = embeddings
-        self.thresh = top_k
+        self.top_k = top_k
 
         try:
             self.patch_embeddings = self.embeddings.patch_embeddings
