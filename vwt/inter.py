@@ -38,6 +38,7 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
     def __init__(self, embeddings, thresh):
         super().__init__()
         self.embeddings = embeddings
+        self.patch_size = self.embeddings.patch_size
         self.thresh = thresh
 
         try:
