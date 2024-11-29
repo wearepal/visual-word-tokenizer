@@ -94,12 +94,12 @@ wrap_model(model.vision_model, thresh=0.1)
 vwt = model.vision_model.embeddings 
 
 # downloading the visual word vocabulary
-snapshot_download(repo_id='LeonidasY/inter-image-imgnet-100', local_dir='tokenizers')
-# snapshot_download(repo_id='LeonidasY/inter-image-imgnet-1000', local_dir='tokenizers')
-# snapshot_download(repo_id='LeonidasY/inter-image-imgnet-10000', local_dir='tokenizers')
+snapshot_download(repo_id='LeonidasY/inter-image-imgnet-100', local_dir='tokenizer')
+# snapshot_download(repo_id='LeonidasY/inter-image-imgnet-1000', local_dir='tokenizer')
+# snapshot_download(repo_id='LeonidasY/inter-image-imgnet-10000', local_dir='tokenizer')
 
 # loading the visual word vocabulary
-vwt.load_words('tokenizers/vocab.pt')
+vwt.load_words('tokenizer/vocab.pt')
 
 # deploy the model for inference on your downstream task...
 
