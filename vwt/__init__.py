@@ -1,7 +1,4 @@
 import abc
-import torch
-
-from typing import Optional
 
 
 class AbstractWordTokenizer(metaclass=abc.ABCMeta):
