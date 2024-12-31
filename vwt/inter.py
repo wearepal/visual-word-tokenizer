@@ -65,11 +65,11 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
         for i, label in enumerate(labels):
             _, labels[i] = torch.unique_consecutive(label, return_inverse=True)
 
-        labels = labels.gather(1, indices.argsort())
-        batch = self.mean_by_label(embeddings[:, 1:, :], labels)
+        self.labels = labels.gather(1, indices.argsort())
+        batch = self.mean_by_label(embeddings[:, 1:, :], self.labels)
 
         batch = torch.cat((embeddings[:, :1, :], batch), dim=1)
-        batch.labels = labels
+        batch.labels = self.labels
 
         if batch.size(0) > 1:
 
