@@ -103,6 +103,10 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
 
         return inverted_mask.masked_fill(inverted_mask.to(torch.bool), torch.finfo(dtype).min)
 
+    def decode(self, embeddings, **kwargs):
+        indices = self.labels.unsqueeze(-1).expand(-1, -1, embeddings.size(-1))
+        return torch.gather(embeddings, 1, indices)
+
     def learn_words(self, data, patch_size, vocab_size, **kwargs):
         self.patch_size = patch_size
         model = MiniBatchKMeans(n_clusters=vocab_size, n_init='auto', **kwargs)
