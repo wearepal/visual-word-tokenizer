@@ -89,13 +89,11 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
         mean = mean.scatter_reduce(1, labels, embeddings, reduce='mean', include_self=False)
         return mean[:, :labels.max() + 1, :]
 
-    def decode(self, embeddings, class_token=False, **kwargs):
-        protected = 1 if class_token else 0
+    def decode(self, embeddings, **kwargs):
         indices = self.labels.unsqueeze(-1).expand(-1, -1, embeddings.size(-1))
-
         return torch.hstack((
-            embeddings[:, :protected, :], 
-            torch.gather(embeddings[:, protected:, :], 1, indices)
+            embeddings[:, :1, :], 
+            torch.gather(embeddings[:, 1:, :], 1, indices)
         ))
 
     @staticmethod
