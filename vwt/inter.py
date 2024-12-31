@@ -89,6 +89,15 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
         mean = mean.scatter_reduce(1, labels, embeddings, reduce='mean', include_self=False)
         return mean[:, :labels.max() + 1, :]
 
+    def decode(self, embeddings, class_token=False, **kwargs):
+        protected = 1 if class_token else 0
+        indices = self.labels.unsqueeze(-1).expand(-1, -1, embeddings.size(-1))
+
+        return torch.hstack((
+            embeddings[:, :protected, :], 
+            torch.gather(embeddings[:, protected:, :], 1, indices)
+        ))
+
     @staticmethod
     def _expand_mask(mask: torch.Tensor, dtype: torch.dtype, tgt_len: Optional[int] = None):
         """
@@ -102,10 +111,6 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
         inverted_mask = 1.0 - expanded_mask
 
         return inverted_mask.masked_fill(inverted_mask.to(torch.bool), torch.finfo(dtype).min)
-
-    def decode(self, embeddings, **kwargs):
-        indices = self.labels.unsqueeze(-1).expand(-1, -1, embeddings.size(-1))
-        return torch.gather(embeddings, 1, indices)
 
     def learn_words(self, data, patch_size, vocab_size, **kwargs):
         self.patch_size = patch_size
