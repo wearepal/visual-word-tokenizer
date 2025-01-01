@@ -6,11 +6,6 @@ class AbstractWordTokenizer(metaclass=abc.ABCMeta):
     def __init__(self):
         self.embeddings = None
         self.patch_size = None
-        self.top_k = None
-        self.thresh = None
-        self.vocab = None
-        self.pad_token = None
-        self.labels = None
 
     @abc.abstractmethod
     def forward(self, pixel_values, **kwargs):
