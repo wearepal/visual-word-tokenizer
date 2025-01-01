@@ -126,9 +126,7 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
         self.vocab = torch.from_numpy(model.cluster_centers_)
 
     def save_pretrained(self, save_directory, **kwargs):
-        if not os.path.exists(save_directory):
-            os.makedirs(save_directory)
-
+        os.makedirs(save_directory, exist_ok=True)
         torch.save(self.vocab, os.path.join(save_directory, 'vocab.pt'))
 
     def load_words(self, data, **kwargs):
