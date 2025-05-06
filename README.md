@@ -12,6 +12,14 @@ The code requires `python=3.8`.
 cat requirements.txt | xargs -n 1 pip install
 ```
 
+The package `fiftyone==1.3.0` must be installed from source due to backwards compatibility issues.
+
+```bash
+git clone --branch v1.3.0 https://github.com/voxel51/fiftyone.git
+cd fiftyone
+bash install.bash
+```
+
 ### Datasets
 
 The CelebA and COCO (2014) datasets have to be downloaded manually and placed in the correct directory.
