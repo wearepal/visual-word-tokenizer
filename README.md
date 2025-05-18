@@ -59,7 +59,7 @@ wrap_model(model.vision_model, thresh=0.1)
 
 vwt = model.vision_model.embeddings 
 vwt.learn_words(
-    split,
+    pre_process_data,
     vocab_size=1000, # number of visual words
     batch_size=1024 # batch size for clustering
 )
