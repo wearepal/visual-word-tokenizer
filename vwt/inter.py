@@ -114,9 +114,6 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
         model = MiniBatchKMeans(n_clusters=vocab_size, n_init='auto', **kwargs)
 
         for batch in tqdm(data):
-            if 'pixel_values' in batch:
-                batch = batch['pixel_values']
-
             patches = self.pretokenize(batch, self.patch_size)
 
             patches = patches.reshape(-1, patches.size(-1))
