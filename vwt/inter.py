@@ -110,12 +110,11 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
 
         return inverted_mask.masked_fill(inverted_mask.to(torch.bool), torch.finfo(dtype).min)
 
-    def learn_words(self, data, patch_size, vocab_size, **kwargs):
-        self.patch_size = patch_size
+    def learn_words(self, data, vocab_size, **kwargs):
         model = MiniBatchKMeans(n_clusters=vocab_size, n_init='auto', **kwargs)
 
         for batch in tqdm(data):
-            if isinstance(batch, dict):
+            if 'pixel_values' in batch:
                 batch = batch['pixel_values']
 
             patches = self.pretokenize(batch, self.patch_size)
