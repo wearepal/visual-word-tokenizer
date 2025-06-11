@@ -128,5 +128,7 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
 
     def load_words(self, data, **kwargs):
         self.vocab = torch.load(data, weights_only=True)
+        print(f'\nLoaded vocabulary from {data}.\n')
+
         if torch.cuda.is_available():
             self.vocab = self.vocab.cuda()
