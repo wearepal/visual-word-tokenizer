@@ -52,7 +52,7 @@ from vwt.inter import wrap_model
 model = CLIPModel.from_pretrained('openai/clip-vit-base-patch16')
 
 # load your pre-processing dataset here...
-pre_process_data =  # a dataloader of image tensors
+pre_process_data =  # a DataLoader of image tensors
 
 # initializing an intra-image tokenizer
 wrap_model(model.vision_model, thresh=0.1)
