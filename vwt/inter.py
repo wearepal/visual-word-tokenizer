@@ -120,6 +120,7 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
             model.partial_fit(patches.detach().numpy())
 
         self.vocab = torch.from_numpy(model.cluster_centers_)
+        self.vocab = F.normalize(self.vocab, p=2, dim=-1).T.unsqueeze(0)
 
     def save_pretrained(self, save_directory, **kwargs):
         os.makedirs(save_directory, exist_ok=True)
@@ -129,6 +130,3 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
         self.vocab = torch.load(data, weights_only=True)
         if torch.cuda.is_available():
             self.vocab = self.vocab.cuda()
-
-        self.vocab = F.normalize(self.vocab, p=2, dim=-1).T.unsqueeze(0)
-        self.patch_size = int(math.sqrt(self.vocab.size(1) // 3))
