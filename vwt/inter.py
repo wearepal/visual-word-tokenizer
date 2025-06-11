@@ -54,7 +54,10 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
 
     def tokenize(self, pixel_values, embeddings, thresh, vocab, **kwargs):
         patches = self.pretokenize(pixel_values, self.patch_size)
-        scores = 1 - torch.matmul(F.normalize(patches, p=2, dim=-1), vocab)
+        scores = 1 - torch.matmul(
+            F.normalize(patches, p=2, dim=-1), 
+            F.normalize(vocab, p=2, dim=-1).T.unsqueeze(0)
+        )
 
         scores, labels = scores.min(-1)
         masks = scores > thresh
@@ -123,7 +126,6 @@ class InterImageTokenizer(nn.Module, WordTokenizer):
             model.partial_fit(patches.detach().numpy())
 
         self.vocab = torch.from_numpy(model.cluster_centers_)
-        self.vocab = F.normalize(self.vocab, p=2, dim=-1).T.unsqueeze(0)
 
     def save_pretrained(self, save_directory, **kwargs):
         os.makedirs(save_directory, exist_ok=True)
