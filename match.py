@@ -123,7 +123,7 @@ def main():
 
     if TOP_K:
       num_patches = (model.config.vision_config.image_size // model.config.vision_config.patch_size) ** 2
-      wrap_model(model.vision_model, top_k=int(num_patches * (1 - TOP_K)))
+      wrap_model(model.vision_model, top_k=int(num_patches * (1 - TOP_K)), rand=RAND)
       vwt = model.vision_model.embeddings
 
     elif THRESH:
@@ -207,6 +207,7 @@ def main():
         if not os.path.exists(output_dir):
           os.makedirs(output_dir)
         plt.savefig(os.path.join(output_dir, f'image_{j}.png'))
+
         plt.close()
 
 

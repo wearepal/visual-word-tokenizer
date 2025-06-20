@@ -79,7 +79,13 @@ class VisualWordTokenizer(nn.Module):
                 patches = self.pretokenize(pixel_values, self.patch_size)
                 scores = patches.var(dim=-1)
 
-                _, indices = torch.topk(scores, top_k, largest=True)
+                if self.rand:
+                    indices = torch.randperm(scores.size(1), device=scores.device)
+                    indices = indices[:top_k].unsqueeze(0)
+
+                else:
+                    _, indices = torch.topk(scores, top_k, largest=True)
+
                 indices, _ = indices.sort()
 
                 indices = indices.unsqueeze(-1).expand(-1, -1, embeddings.size(-1))
@@ -103,10 +109,13 @@ class VisualWordTokenizer(nn.Module):
 
                 patches = patches.flatten(2).transpose(1, 2)
 
-            scores = 1 - torch.matmul(F.normalize(patches, p=2, dim=-1), vocab)
+            try:
+                scores = 1 - torch.matmul(F.normalize(patches, p=2, dim=-1), vocab)
+            except:
+                scores = 1 - torch.matmul(F.normalize(patches.float(), p=2, dim=-1), vocab)
+
             if self.rand:
-                scores = torch.rand_like(scores)
-                scores = scores.uniform_(0, 2)
+                scores = torch.empty_like(scores).uniform_(0, 2)
 
             if top_k:
                 raise NotImplementedError

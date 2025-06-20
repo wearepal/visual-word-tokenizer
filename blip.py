@@ -32,20 +32,18 @@ def main():
     help='The dataset to use.'
   )
 
-  group = parser.add_mutually_exclusive_group()
-
-  group.add_argument(
+  parser.add_argument(
     '--quant',
     type=str,
     choices=['True', 'False'],
     help='Whether to quantize the model.'
   )
-  group.add_argument(
+  parser.add_argument(
     '--tome',
     type=int,
     help='The reduction size via ToMe.'
   )
-  group.add_argument(
+  parser.add_argument(
     '--vocab',
     type=int,
     choices=[100, 1000, 10000],
@@ -137,6 +135,7 @@ def main():
     'rand' if RAND else ''
   )
 
+
   # Load the dataset
   set_seed(i)
 
@@ -149,6 +148,13 @@ def main():
     with init_empty_weights():
       model = BlipForConditionalGeneration.from_pretrained(model_name)
 
+    model = load_and_quantize_model(
+      model, 
+      weights_location=snapshot_download(model_name), 
+      bnb_quantization_config=BnbQuantizationConfig(load_in_8bit=True), 
+      device_map='auto'
+    )
+
   else:
     model = BlipForConditionalGeneration.from_pretrained(model_name)
 
@@ -158,7 +164,7 @@ def main():
 
   elif TOP_K:
     num_patches = (model.config.vision_config.image_size // model.config.vision_config.patch_size) ** 2
-    wrap_model(model.vision_model, top_k=int(num_patches * (1 - TOP_K)))
+    wrap_model(model.vision_model, top_k=int(num_patches * (1 - TOP_K)), rand=RAND)
     vwt = model.vision_model.embeddings
 
   elif THRESH:
@@ -175,14 +181,6 @@ def main():
     vwt.load_words(tokenizer_dir, criterion='image')
 
   # Evaluate the model
-  if QUANT:
-    model = load_and_quantize_model(
-      model, 
-      weights_location=snapshot_download(model_name), 
-      bnb_quantization_config=BnbQuantizationConfig(load_in_8bit=True), 
-      device_map='auto'
-    )
-
   result_file = dec.test_model(
     model, 
     config, 
