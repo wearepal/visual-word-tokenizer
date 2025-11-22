@@ -52,7 +52,6 @@ class IMGNETDataset(Dataset):
 
         data = load_dataset(
             'ILSVRC/imagenet-1k', 
-            token='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', 
             cache_dir=self.root_dir
         )
         self.features_mat = data[split]
