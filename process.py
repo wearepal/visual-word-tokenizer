@@ -134,7 +134,7 @@ def main():
     vwt.learn_words(
       split,
       vocab_size=VOCAB,
-      space=SPACE,
+      criterion=SPACE,
       batch_size=batch_size
     )
 
