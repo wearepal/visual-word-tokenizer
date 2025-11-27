@@ -2,7 +2,7 @@
 
 The repository wraps the code for the paper titled [**Visual-Word Tokenizer: Beyond Fixed Sets of Tokens in Vision Transformers**](https://openreview.net/pdf?id=YYOS1FHYG3) on TMLR, into a ready to use library for your own application.
 
-The [tmlr](https://github.com/wearepal/visual-word-tokenizer/tree/tmlr) branch contains the original code for the paper.  
+The [tmlr](https://github.com/wearepal/visual-word-tokenizer/tree/tmlr2025) branch contains the original code for the paper.  
 
 **Authors:** Leonidas Gee, Wing Yan Li, Viktoriia Sharmanska, Novi Quadrianto
 
