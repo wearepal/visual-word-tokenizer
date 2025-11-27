@@ -107,13 +107,14 @@ vwt.load_words('tokenizer/vocab.pt')
 
 ## Citation
 ```
-@misc{gee2024efficientonlineinferencevision,
-      title={Efficient Online Inference of Vision Transformers by Training-Free Tokenization}, 
-      author={Leonidas Gee and Wing Yan Li and Viktoriia Sharmanska and Novi Quadrianto},
-      year={2024},
-      eprint={2411.15397},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2411.15397}, 
+@article{
+gee2025visualword,
+title={Visual-Word Tokenizer: Beyond Fixed Sets of Tokens in Vision Transformers},
+author={Leonidas Gee and Wing Yan Li and Viktoriia Sharmanska and Novi Quadrianto},
+journal={Transactions on Machine Learning Research},
+issn={2835-8856},
+year={2025},
+url={https://openreview.net/forum?id=YYOS1FHYG3},
+note={}
 }
 ```
